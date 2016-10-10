@@ -1,14 +1,19 @@
+'use strict'
+
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const penis = require('./backend/services/penis.js')
 
-app.get('/', (req,res) => {
-  res.sendfile('public/index.html');
-});
+let port = process.env.PORT || 3000;
 
-app.use(express.static('build'))
-app.use(express.static('assets'))
+app.use(express.static(`${__dirname}/public`))
+app.use(express.static(`${__dirname}/build`))
+app.use(express.static(`${__dirname}/assets`))
+
+app.get('/penis/:size', (req, res) => {
+  res.send( penis(parseInt(req.params.size)) )
+})
 
 app.listen(port, () => {
-  console.log('app listening on port 3000!')
+  console.log(`listening on ${port}`)
 })
