@@ -14,6 +14,10 @@ app.get('/penis/:size', (req, res) => {
   res.send( penis(parseInt(req.params.size)) )
 })
 
+app.get('*',function (req, res) {
+  res.sendfile(`${__dirname}/public/index.html`);
+});
+
 app.listen(port, () => {
   console.log(`listening on ${port}`)
 })

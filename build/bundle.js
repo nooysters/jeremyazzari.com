@@ -78,13 +78,15 @@
 	var appData = {
 	  blog: {
 	    posts: [{
+	      id: 0,
 	      subject: 'Some Subject',
 	      body: "Some Body, somebody?",
-	      timeStamp: new Date()
+	      timeStamp: new Date().toLocaleTimeString()
 	    }, {
+	      id: 1,
 	      subject: 'Some Other Subject',
 	      body: "Some Other post Body, somebody else?!?!?",
-	      timeStamp: new Date()
+	      timeStamp: new Date().toLocaleTimeString()
 	    }]
 	  }
 	};
@@ -107,15 +109,17 @@
 	var App = function (_Component) {
 	  _inherits(App, _Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	  }
 
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      console.log(this.props);
 	      return _react2.default.createElement(
 	        _reactRouter.BrowserRouter,
@@ -147,7 +151,9 @@
 	          ),
 	          _react2.default.createElement('hr', null),
 	          _react2.default.createElement(_reactRouter.Match, { exactly: true, pattern: '/', component: Home }),
-	          _react2.default.createElement(_reactRouter.Match, { pattern: '/blog', component: _blog2.default }),
+	          _react2.default.createElement(_reactRouter.Match, { pattern: '/blog', render: function render() {
+	              return _react2.default.createElement(_blog2.default, { blogData: _this2.props.appData.blog });
+	            } }),
 	          _react2.default.createElement(_reactRouter.Miss, { component: NoMatch })
 	        )
 	      );
@@ -25549,7 +25555,11 @@
 	  _createClass(Blog, [{
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props);
+	      var posts = this.props.blogData.posts;
+	      posts = posts.map(function (post) {
+	        return _react2.default.createElement(Post, { post: post, key: post.id });
+	      });
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -25558,7 +25568,7 @@
 	          null,
 	          'Blog'
 	        ),
-	        _react2.default.createElement(Post, null)
+	        posts
 	      );
 	    }
 	  }]);
@@ -25587,19 +25597,19 @@
 	          'span',
 	          null,
 	          'subject: ',
-	          this.props.subject
+	          this.props.post.subject
 	        ),
 	        _react2.default.createElement(
 	          'span',
 	          null,
 	          'date: ',
-	          this.props.time
+	          this.props.post.timeStamp
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
 	          'body: ',
-	          this.props.body
+	          this.props.post.body
 	        )
 	      );
 	    }

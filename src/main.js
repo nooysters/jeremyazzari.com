@@ -8,14 +8,16 @@ let appData = {
   blog: {
     posts: [
       {
+        id: 0,
         subject: 'Some Subject',
         body: "Some Body, somebody?",
-        timeStamp: new Date()
+        timeStamp: new Date().toLocaleTimeString()
       },
       {
+        id: 1,
         subject: 'Some Other Subject',
         body: "Some Other post Body, somebody else?!?!?",
-        timeStamp: new Date()
+        timeStamp: new Date().toLocaleTimeString()
       }
     ]
   }
@@ -25,6 +27,11 @@ const NoMatch = () => <h2>Not Found</h2>
 const Home = () => <h2>Home</h2>
 
  class App extends Component {
+   constructor(props) {
+     super(props)
+
+   }
+
    render () {
      console.log(this.props)
      return (
@@ -38,7 +45,7 @@ const Home = () => <h2>Home</h2>
           <hr/>
 
           <Match exactly pattern="/" component={Home} />
-          <Match pattern="/blog" component={Blog} />
+          <Match pattern="/blog" render={()=>(<Blog blogData={this.props.appData.blog}/>)} />
 
           <Miss component={NoMatch}/>
         </div>
