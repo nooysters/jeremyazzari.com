@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import { Router, Route, Link, hashHistory } from 'react-router'
+import { BrowserRouter, Match, Link, Miss } from 'react-router'
+
 import Blog from './components/blog'
 
 let appData = {
@@ -20,31 +21,30 @@ let appData = {
   }
 }
 
-class App extends Component {
-  render() {
-    return(
-      <div>
-        <h1>App</h1>
-        <ul>
-          <li><Link to="/blog">blog</Link></li>
-        </ul>
-        {this.props.children}
-      </div>
+const NoMatch = () => <h2>Not Found</h2>
+const Home = () => <h2>Home</h2>
+
+ class App extends Component {
+   render () {
+     console.log(this.props)
+     return (
+      <BrowserRouter>
+        <div>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/blog">Blog</Link></li>
+          </ul>
+
+          <hr/>
+
+          <Match exactly pattern="/" component={Home} />
+          <Match pattern="/blog" component={Blog} />
+
+          <Miss component={NoMatch}/>
+        </div>
+      </BrowserRouter>
     )
   }
 }
-
-class NoMatch extends Component {
-  render() {
-    return( <h1>Page not found</h1> )
-  }
-}
-
-render((
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <Route path="blog" component={Blog}/>
-      <Route path="*" component={NoMatch}/>
-    </Route>
-  </Router>
-), document.getElementById('root'))
+App.defaultProps = {appData}
+render(<App/>, document.getElementById('root'))
