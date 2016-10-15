@@ -67,6 +67,10 @@
 
 	var _blog2 = _interopRequireDefault(_blog);
 
+	var _justforfun = __webpack_require__(216);
+
+	var _justforfun2 = _interopRequireDefault(_justforfun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74,6 +78,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	(0, _justforfun2.default)(80);
 
 	var appData = {
 	  blog: {
@@ -25617,6 +25623,39 @@
 
 	  return Post;
 	}(_react.Component);
+
+/***/ },
+/* 216 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = makeItRain;
+	var makeCircle = function makeCircle(cx, cy, r, bottom) {
+	  var duration = Math.floor((Math.sin(cx) + Math.cos(cx)) * 10) + Math.random() * 10;
+	  var style = "\n    animation-name: rain;\n    animation-duration: " + duration + "s;\n    animation-iteration-count: infinite;\n  ";
+
+	  return "<circle style=\"" + style + "\" cx=\"" + cx + "\" cy=\"" + cy + "\" r=" + r + " class=\"dot\">\n     </circle>";
+	};
+
+	function makeItRain(n) {
+	  var height = document.body.clientHeight;
+	  var width = document.body.clientWidth;
+
+	  document.body.innerHTML += "<svg id=\"snow-field\" width=\"1000\" height=\"1000\" style=\"position:relative\"></svg>";
+
+	  var svg = document.getElementById("snow-field");
+
+	  var circles = Array(n).fill().map(function () {
+	    var x = Math.floor(Math.random() * width);
+	    var r = Math.floor(Math.random() * 10);
+	    var circle = makeCircle(x, -100, r, 500, 10);
+	    svg.innerHTML += circle;
+	  });
+	}
 
 /***/ }
 /******/ ]);

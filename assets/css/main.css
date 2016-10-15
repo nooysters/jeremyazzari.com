@@ -1,5 +1,7 @@
 body {
-  background: #999;
+  background: #fff;
+  height:100%;
+  position: relative;
 }
 
 .poly {
@@ -12,4 +14,17 @@ body {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+@keyframes rain {
+  0%   {transform: translateY(0px);}
+  25%   {transform: translateY(100px);}
+  50%   {transform: translateY(200px);}
+  75% {transform: translateY(400px);}
+  100% {transform: translateY(800px);}
+}
+
+.dot{
+  stroke: #0000ff;
+  fill: none;
 }

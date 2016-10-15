@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter, Match, Link, Miss } from 'react-router'
-
 import Blog from './components/blog'
+import makeItRain from './extra/justforfun'
+
+
+makeItRain(80)
 
 let appData = {
   blog: {
